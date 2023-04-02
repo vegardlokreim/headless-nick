@@ -4,13 +4,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 const Checkout = () => {
-  const router = useRouter();
   const [orderData] = useState({
     orderId: useSelector((state: RootState) => state.cart.klarnaOrderId),
     htmlSnippet: useSelector((state: RootState) => state.cart.klarnaHtmlSnippet),
   });
-  const checkoutContainer = useRef<HTMLDivElement>(null);
 
+  const checkoutContainer = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   useEffect(() => {
     if (orderData.htmlSnippet) {
       const container = checkoutContainer.current;
