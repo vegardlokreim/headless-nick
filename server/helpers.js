@@ -4,7 +4,7 @@ export const createKlarnaOrderLines = (cart) => {
     let order_lines = [];
     cart.forEach((line) => {
 
-        const unit_price = line.price + (line.total_tax / line.quantity);
+        const unit_price = Math.round(line.price + (line.total_tax / line.quantity));
         const total_amount = unit_price * line.quantity;
         const tax_rate = Math.round(line.subtotal_tax * 100 / line.subtotal) * 100;
         const total_tax_amount = calculateTaxAmount(total_amount, tax_rate);
@@ -21,7 +21,6 @@ export const createKlarnaOrderLines = (cart) => {
             total_tax_amount: total_tax_amount * 100
         });
     });
-
     return order_lines;
 };
 

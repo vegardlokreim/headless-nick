@@ -1,19 +1,16 @@
 import { createKlarnaOrderLines } from "../helpers.js";
 import axios from "axios";
+import { setWoocommerceOrderProcessing } from "./woocommerce.js";
 
 export const createKlarnaOrder = async (woocommerceOrder) => {
     //takes woocommerceOrder, transforms it into order_lines, creates klarna order and returns html_snippet and klarna order id
-
     const order_lines = createKlarnaOrderLines(woocommerceOrder.line_items);
-
     const total_tax_amount = order_lines.reduce((sum, line) => {
         return sum + line.total_tax_amount;
     }, 0);
     const order_amount = order_lines.reduce((sum, line) => {
         return sum + line.total_amount;
     }, 0);
-
-
 
     const { data: klarnaOrder } = await axios.post(process.env.KLARNA_CREATE_ORDER_URL,
         {
@@ -47,7 +44,7 @@ export const createKlarnaOrder = async (woocommerceOrder) => {
     return klarnaOrder;
 }
 
-export const getKlarnaOrder = async (orderId) => {
+export const retrieveKlarnaOrder = async (orderId) => {
 
     const { data } = await axios.get(
         `${process.env.KLARNA_CREATE_ORDER_URL}/${orderId}`, {
@@ -58,10 +55,14 @@ export const getKlarnaOrder = async (orderId) => {
     },
     );
 
-    const { status, billing_address, shipping_address, html_snippet: klarnaHtmlSnippet } = data;
+    const { status, billing_address, shipping_address, html_snippet: klarnaHtmlSnippet, merchant_reference1: wooOrderId } = data;
+
 
     if (status === "checkout_complete") {
-        // update woocommerce order and set status to processing
+        const updatedWooOrder = await setWoocommerceOrderProcessing(wooOrderId, billing_address, billing_address, orderId);
+        console.log("🚀 ~ file: klarna.js:63 ~ retrieveKlarnaOrder ~ updatedWooOrder:", updatedWooOrder)
+
+
     }
 
     return { status, klarnaHtmlSnippet };
@@ -90,7 +91,7 @@ export const updateKlarnaOrder = async (woocommerceOrder, orderId) => {
         merchant_urls: {
             terms: "https://www.example.com/terms.html",
             checkout: "http://localhost:3000/checkout",
-            confirmation: "http://localhost:3000/confirmation/",
+            confirmation: "http://localhost:3000/confirmation/?orderId={checkout.order.id}",
             push: "https://www.example.com/api/push",
         }
     }, {

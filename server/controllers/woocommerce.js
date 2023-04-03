@@ -108,8 +108,45 @@ export const updateWooCommerceOrder = async (cart, orderId) => {
 
 
 
-export const setWoocommerceOrderProcessing = (orderId, personalia) => {
+export const setWoocommerceOrderProcessing = async (orderId, billing, shipping, klarnaOrderId) => {
     //takes orderId and a personalia object. sets the order to processing and updates billing and shipping information
+
+    const body = {
+        status: "processing",
+        billing: {
+            first_name: billing.given_name,
+            last_name: billing.family_name,
+            address_1: billing.street_address,
+            city: billing.city,
+            postcode: billing.postal_code,
+            country: billing.country,
+            email: billing.email,
+            phone: billing.phone
+        },
+        shipping: {
+            first_name: shipping.given_name,
+            last_name: shipping.family_name,
+            address_1: shipping.street_address,
+            city: shipping.city,
+            postcode: shipping.postal_code,
+            country: shipping.country,
+            email: shipping.email,
+            phone: shipping.phone
+        },
+        transaction_id: klarnaOrderId,
+        meta_data: [{ key: "_wc_klarna_order_id", value: klarnaOrderId }],
+    }
+
+    const { data: updatedOrder } = await axios.put(`${process.env.WOO_URL}/wp-json/wc/v3/orders/${orderId}`,
+        body, {
+        auth: {
+            username: process.env.WOO_CK,
+            password: process.env.WOO_CS,
+        },
+    }
+    );
+    return updatedOrder;
+
 }
 
 export const getWoocommerceOrder = async (orderId) => {
