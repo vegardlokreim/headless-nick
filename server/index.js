@@ -17,13 +17,3 @@ const PORT = process.env.PORT || 9000;
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
 
-
-//TODO: Add middleware and JWT
-
-
-// app.use("/woocommerce", woocommerceRouter)
-// app.use("/klarna", klarnaRouter)
-
-app.use("/orders", ordersRouter);
-
-app.use("/products", productsRouter);
