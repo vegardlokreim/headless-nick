@@ -8,6 +8,7 @@ export const logout = (req, res) => {
 }
 
 export const login = async (req, res) => {
+    console.log("ligib ")
 
     const { username, password } = req.body;
 
@@ -24,6 +25,7 @@ export const login = async (req, res) => {
 
 
     } catch (error) {
+        console.log("Error")
         res.status(401).send('Wrong crendentials');
     }
 }
