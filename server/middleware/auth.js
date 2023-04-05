@@ -22,7 +22,7 @@ export const attatchUserId = (req, res, next) => {
         req.user = null;
         return next();
     }
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, process.env.WOO_AUTH_SECRET, (err, user) => {
         if (err) {
             req.user = null;
         } else {

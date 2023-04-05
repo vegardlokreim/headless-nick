@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken"
 
 export const createOrder = async (req, res) => {
 
-    const { user } = req.user
+    const user = req.user
     console.log(user);
 
     const cart = req.body;
@@ -48,7 +48,6 @@ export const updateOrder = async (req, res) => {
     const { cart, klarnaOrderId, wooOrderId } = req.body;
     const updatedWoocommerceOrder = await updateWooCommerceOrder(cart, wooOrderId);
     const updatedKlarnaOrder = await updateKlarnaOrder(updatedWoocommerceOrder, klarnaOrderId);
-    console.log(updatedKlarnaOrder)
     res.status(200).send({ klarnaHtmlSnippet: updatedKlarnaOrder.html_snippet });
 
 }
