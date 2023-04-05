@@ -11,6 +11,7 @@ const initialState: CartState = {
   klarnaOrderId: "",
   klarnaHtmlSnippet: "",
   wooOrderId: -1,
+  isLoggedIn: false
 };
 
 const persistConfig = {
@@ -36,6 +37,9 @@ export const cartSlice = createSlice({
           state.totalQuantity += itemToAdd.quantity;
           state.totalAmount += itemToAdd.price * itemToAdd.quantity;
       }
+    },
+    setLoggedInState: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload;
     },
     updateItemQuantity: (state, action: PayloadAction<UpdateCartProps>) => {
       const { id, quantity }: UpdateCartProps = action.payload;
@@ -73,6 +77,6 @@ export const cartSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addToCart, updateItemQuantity, clearCart, setKlarnaHtmlSnippet, setKlarnaOrderId, setWooCommerceOrderId} = cartSlice.actions
+export const { addToCart, updateItemQuantity, clearCart, setKlarnaHtmlSnippet, setKlarnaOrderId, setWooCommerceOrderId, setLoggedInState} = cartSlice.actions
 
 export default cartSlice.reducer

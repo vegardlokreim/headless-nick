@@ -42,6 +42,7 @@ export type WooCommerceImage = {
     klarnaOrderId: string;
     klarnaHtmlSnippet: string;
     wooOrderId: number;
+    isLoggedIn: boolean;
   }
 
   export type UpdateCartProps = {

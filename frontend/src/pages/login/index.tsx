@@ -4,11 +4,22 @@ import axios from "axios";
 import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoggedInState } from "@/state/slices/cartSlice";
+import { RootState } from "@/state/store";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+
+  const dispatch = useDispatch();
+
+  const isLoggedIn = useSelector((state: RootState) => state.cart.isLoggedIn);
+
+  if (isLoggedIn) {
+    Router.push("/myAccount");
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,6 +37,7 @@ export default function Login() {
       );
 
       Router.push("/myAccount");
+      dispatch(setLoggedInState(true));
     } catch (error) {
       setError("Invalid username or password");
     }

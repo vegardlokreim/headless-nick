@@ -40,3 +40,11 @@ export const createWoocommerceLineItems = (cart) => {
         };
     });
 };
+
+
+export const auth = {
+    auth: {
+        username: process.env.WOO_CK,
+        password: process.env.WOO_CS,
+    },
+}

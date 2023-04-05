@@ -1,7 +1,7 @@
 import axios from "axios"
 import { createWoocommerceLineItems } from "../helpers.js"
 
-export const createWoocommerceOrder = async (cart) => {
+export const createWoocommerceOrder = async (cart, customerId) => {
 
     const line_items = createWoocommerceLineItems(cart);
     try {
@@ -10,6 +10,7 @@ export const createWoocommerceOrder = async (cart) => {
             {
                 status: 'pending',
                 line_items: line_items,
+                customer_id: customerId
             }
             ,
             {
