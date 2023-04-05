@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 
 import ordersRouter from "./routes/orders.js"
 import productsRouter from "./routes/products.js"
+import authRouter from "./routes/auth.js"
 
 dotenv.config();
 const app = express();
@@ -17,13 +18,6 @@ const PORT = process.env.PORT || 9000;
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
 
-
-//TODO: Add middleware and JWT
-
-
-// app.use("/woocommerce", woocommerceRouter)
-// app.use("/klarna", klarnaRouter)
-
 app.use("/orders", ordersRouter);
-
+app.use("/auth", authRouter)
 app.use("/products", productsRouter);
