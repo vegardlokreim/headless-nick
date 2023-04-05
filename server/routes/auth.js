@@ -5,10 +5,7 @@ const router = express.Router();
 
 router.get('/logout', logout);
 
-
 router.post('/login', login);
-
-
 
 router.get('/auth-check', authenticateJWT, authCheck);
 

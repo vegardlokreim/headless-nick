@@ -8,24 +8,18 @@ export const logout = (req, res) => {
 }
 
 export const login = async (req, res) => {
-    console.log("ligib ")
-
     const { username, password } = req.body;
-
     try {
         const response = await axios.post('https://vegard.demonstrer.es/wp-json/jwt-auth/v1/token', {
             username,
             password
         });
-
         const token = response.data.token;
         const user = jwt.decode(token);
         res.cookie('token', token, { httpOnly: true });
         res.json({ id: user.data.user.id, username: user.data.user.user_login });
-
-
     } catch (error) {
-        console.log("Error")
+
         res.status(401).send('Wrong crendentials');
     }
 }

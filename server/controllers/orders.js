@@ -19,6 +19,21 @@ export const getWoocommerceOrder = (req, res) => {
 
 }
 
+export const getWoocommerceOrdersByCustomerId = async (req, res) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+        console.log("no token");
+        return;
+    }
+
+    console.log("🚀 ~ file: orders.js:24 ~ getWoocommerceOrdersByCustomerId ~: user orders requested", token)
+
+
+}
+
+
+
 export const updateOrder = async (req, res) => {
 
     const { cart, klarnaOrderId, wooOrderId } = req.body;

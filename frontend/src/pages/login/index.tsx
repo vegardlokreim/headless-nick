@@ -25,7 +25,7 @@ export default function Login() {
         }
       );
 
-      Router.push("/orders");
+      Router.push("/myAccount");
     } catch (error) {
       setError("Invalid username or password");
     }
