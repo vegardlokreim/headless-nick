@@ -4,7 +4,7 @@ export const authenticateJWT = (req, res, next) => {
     if (!token) {
         return res.sendStatus(401);
     }
-    jwt.verify(token, "sO_F>%0{*!-2@d/[)nx2t_]G_P-?KROn:Ibc=x9wvq$>&03QO+mQ/[._ck82zz", (err, decoded) => {
+    jwt.verify(token, process.env.WOO_AUTH_SECRET, (err, decoded) => {
         if (err) {
             console.log("middleware/auth.js unauthorized request", err);
             return res.sendStatus(403);

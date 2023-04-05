@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createKlarnaOrder, updateKlarnaOrder, retrieveKlarnaOrder } from "./klarna.js";
 import { createWoocommerceOrder, updateWooCommerceOrder } from "./woocommerce.js";
+import jwt from "jsonwebtoken"
 
 export const createOrder = async (req, res) => {
     const cart = req.body;
@@ -27,7 +28,11 @@ export const getWoocommerceOrdersByCustomerId = async (req, res) => {
         return;
     }
 
-    console.log("🚀 ~ file: orders.js:24 ~ getWoocommerceOrdersByCustomerId ~: user orders requested", token)
+
+
+
+
+    res.send(req.user.id)
 
 
 }
