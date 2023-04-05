@@ -2,6 +2,7 @@ import axios from "axios"
 import { createWoocommerceLineItems } from "../helpers.js"
 
 export const createWoocommerceOrder = async (cart) => {
+
     const line_items = createWoocommerceLineItems(cart);
     try {
         const { data } = await axios.post(

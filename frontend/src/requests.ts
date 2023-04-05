@@ -3,7 +3,9 @@ import { KlarnaOrderResponse, WoocommerceCartItem } from "./types";
 
 
 export const createOrder = async( cart: WoocommerceCartItem[]) => {
-    const { data }: {data: KlarnaOrderResponse }= await axios.post("http://localhost:4000/orders/createOrder", cart);
+    const { data }: {data: KlarnaOrderResponse }= await axios.post("http://localhost:4000/orders/createOrder", cart, {
+        withCredentials: true,
+      });
     return data;
 }
 export const updateOrder = async( cart: WoocommerceCartItem[], klarnaOrderId: string, wooOrderId: number) => {

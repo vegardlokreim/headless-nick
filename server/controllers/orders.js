@@ -4,6 +4,10 @@ import { createWoocommerceOrder, updateWooCommerceOrder } from "./woocommerce.js
 import jwt from "jsonwebtoken"
 
 export const createOrder = async (req, res) => {
+
+    const { user } = req.user
+    console.log(user);
+
     const cart = req.body;
     const woocommerceOrder = await createWoocommerceOrder(cart);
     const klarnaOrder = await createKlarnaOrder(woocommerceOrder);
@@ -21,23 +25,23 @@ export const getWoocommerceOrder = (req, res) => {
 }
 
 export const getWoocommerceOrdersByCustomerId = async (req, res) => {
-    const token = req.cookies.token;
 
-    if (!token) {
-        console.log("no token");
-        return;
+    try {
+        const { id } = req.user.data.user;
+        const response = await axios.get(
+            `https://vegard.demonstrer.es/wp-json/wc/v3/orders?customer=${id}`,
+            {
+                auth: {
+                    username: process.env.WOO_CK,
+                    password: process.env.WOO_CS,
+                },
+            }
+        );
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).send('Ikke auth');
     }
-
-
-
-
-
-    res.send(req.user.id)
-
-
 }
-
-
 
 export const updateOrder = async (req, res) => {
 
