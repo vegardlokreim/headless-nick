@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser"
 
 // import woocommerceRouter from "./routes/woocommerce.js"
 // import klarnaRouter from "./routes/klarna.js"
@@ -16,6 +17,8 @@ app.use(cors({
     credentials: true,
 }));
 app.use(express.json());
+app.use(cookieParser());
+
 
 const PORT = process.env.PORT || 9000;
 
