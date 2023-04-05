@@ -13,7 +13,7 @@ export default function Login() {
 
     try {
       await axios.post(
-        "http://localhost:4000/login",
+        "http://localhost:4000/auth/login",
         {
           username,
           password,

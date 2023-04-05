@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken"
 import cookieParser from "cookie-parser";
 import axios from "axios"
+import { authenticateJWT } from "./middleware/auth.js";
+
+import authRouter from "./routes/auth.js";
 
 dotenv.config();
 const app = express();
@@ -20,42 +23,27 @@ app.use(cors({
     credentials: true,
 }));
 
-const authenticateJWT = (req, res, next) => {
-    const token = req.cookies.token;
 
-    if (token) {
-        jwt.verify(token, 'sO_F>%0{*!-2@d/[)nx2t_]G_P-?KROn:Ibc=x9wvq$>&03QO+mQ/[._ck82zz', (err, user) => {
-            if (err) {
-                return res.sendStatus(403);
-            }
-            req.user = user;
-            next();
-        });
-    } else {
-        res.sendStatus(401);
-    }
-};
+app.use("/auth", authRouter);
 
-app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+
+app.get('/orders', authenticateJWT, async (req, res) => {
+    const { user } = req;
 
     try {
-        const response = await axios.post('https://vegard.demonstrer.es/wp-json/jwt-auth/v1/token', {
-            username,
-            password
-        });
+        const response = await axios.get(
+            `https://vegard.demonstrer.es/wp-json/wc/v3/orders?customer=${user.data.user.id}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${req.token}`,
+                },
+            }
+        );
 
-        const token = response.data.token;
-        const user = jwt.decode(token);
-
-        res.cookie('token', token, { httpOnly: true });
-        res.json({ id: token });
-
+        res.json(response.data);
     } catch (error) {
-        res.status(401).send('Invalid username or password');
+
+        res.status(500).send('Ikke auth');
     }
 });
 
-app.get('/auth-check', authenticateJWT, (_, res) => {
-    res.sendStatus(200);
-});
