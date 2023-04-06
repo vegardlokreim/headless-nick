@@ -48,7 +48,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start h-[92vh] bg-gray-100 pt-20">
+    <div className="flex flex-col items-center justify-start h-[100vh] bg-gray-100 pt-20">
       <Image src="/nextlogo.png" alt="logo" width="100" height="100" />
       <div className="flex flex-col bg-white p-6 my-8 border-[1px] border-gray-300">
         <form onSubmit={handleSubmit} className="flex flex-col ">
