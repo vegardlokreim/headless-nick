@@ -62,19 +62,19 @@ export default function Login() {
           </div>
 
           <div className="flex justify-between">
-            <div className="flex flex-row items-center gap-2">
-              <input type="checkbox" />
+            <div className="flex flex-row items-center">
+              <input type="checkbox" className="w-8 h-8" />
               <p>Remember me</p>
             </div>
 
-            <button className="bg-black text-white mt-4 w-20 px-4 py-2" type="submit">
+            <button className="bg-black text-white mt-4 w-20 px-2 py-1 rounded-[4px]" type="submit">
               Login
             </button>
           </div>
         </form>
         <p className="mt-4">{error && <p>{error}</p>}</p>
       </div>
-      <div className="flex flex-col w-[300px] gap-4 ">
+      <div className="flex flex-col w-[300px] gap-2 ">
         <p>Mistet passordet ditt?</p>
         <Link href="/">Tilbake</Link>
       </div>
