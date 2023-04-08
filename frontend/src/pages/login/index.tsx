@@ -62,8 +62,8 @@ export default function Login() {
           </div>
 
           <div className="flex justify-between">
-            <div className="flex flex-row items-center">
-              <input type="checkbox" className="w-8 h-8" />
+            <div className="flex flex-row items-center gap-1">
+              <input type="checkbox" className="w-4 h-4" />
               <p>Remember me</p>
             </div>
 

@@ -29,7 +29,7 @@ export default function Navbar() {
 
         {isLoggedIn && (
           <li>
-            <Link href="/myAccount">My account</Link>
+            <Link href="/my-account">My account</Link>
           </li>
         )}
       </ul>

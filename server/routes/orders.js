@@ -8,6 +8,7 @@ router.post("/createOrder", attatchUserId, createOrder);
 router.post("/updateOrder", updateOrder);
 router.get("/getKlarnaOrder/:id", getKlarnaOrder);
 router.get("/getWoocommerceOrdersByCustomerId", authenticateJWT, getWoocommerceOrdersByCustomerId);
+router.get("/getWoocommerceOrder/:id", authenticateJWT, getWoocommerceOrdersByCustomerId);
 
 
 

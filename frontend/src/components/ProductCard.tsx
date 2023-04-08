@@ -19,19 +19,18 @@ export default function ProductCard({ product }: ProductCardProps) {
     dispatch(addToCart(itemToAdd));
   };
   return (
-    <Link href={`/product/${product.id}`}>
-      <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
+      <Link href={`/product/${product.id}`}>
         <img src={product.images[0]?.src} />
         <h1 className="text-xl mt-4">{product.name}</h1>
-
-        {product.stock_quantity > 0 ? (
-          <button onClick={handleAddToCart} className="px-4 py-2 bg-gray-200 mt-4">
-            Add to cart
-          </button>
-        ) : (
-          <button className="px-4 py-2 bg-gray-200 mt-4">Out of stock</button>
-        )}
-      </div>
-    </Link>
+      </Link>
+      {product.stock_quantity > 0 ? (
+        <button onClick={handleAddToCart} className="px-4 py-2 bg-gray-200 mt-4">
+          Add to cart
+        </button>
+      ) : (
+        <button className="px-4 py-2 bg-gray-200 mt-4">Out of stock</button>
+      )}
+    </div>
   );
 }

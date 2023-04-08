@@ -17,8 +17,22 @@ export const getKlarnaOrder = async (req, res) => {
     res.send(await retrieveKlarnaOrder(order_id))
 }
 
-export const getWoocommerceOrder = (req, res) => {
-
+export const getWoocommerceOrder = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+        const response = await axios.get(
+            `https://vegard.demonstrer.es/wp-json/wc/v3/orders/${orderId}`,
+            {
+                auth: {
+                    username: process.env.WOO_CK,
+                    password: process.env.WOO_CS,
+                },
+            }
+        );
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).send('Ikke auth');
+    }
 }
 
 export const getWoocommerceOrdersByCustomerId = async (req, res) => {

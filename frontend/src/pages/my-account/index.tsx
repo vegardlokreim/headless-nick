@@ -1,3 +1,4 @@
+import Orders from "@/components/Orders";
 import { setLoggedInState } from "@/state/slices/cartSlice";
 import { RootState } from "@/state/store";
 import axios from "axios";
@@ -21,7 +22,7 @@ const MyAccount: React.FC = () => {
       case "mypage":
         return <div>My page content goes here...</div>;
       case "orders":
-        return <div>Orders content goes here...</div>;
+        return <Orders />;
       case "wishlist":
         return <div>Wishlist content goes here...</div>;
       default:
@@ -30,8 +31,8 @@ const MyAccount: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-[93vh] mx-[20vw]">
-      <h1>My account</h1>
+    <div className="flex flex-col items-center h-[93vh] mx-[20vw] mt-20">
+      <h1 className="text-3xl">My account</h1>
 
       {/* Main content */}
       <div className="flex flex-row w-full">
