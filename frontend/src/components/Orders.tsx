@@ -15,12 +15,17 @@ const Orders = () => {
         const { data: orders }: { data: WoocommerceOrderResponse[] } = await axios.get("http://localhost:4000/orders/getWoocommerceOrdersByCustomerId", {
           withCredentials: true,
         });
-        console.log(orders);
         setOrders(
           orders.map((order) => ({
             ...order,
             date_paid_gmt: order.date_paid_gmt
               ? new Date(order.date_paid_gmt).toLocaleString("nb-NO", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", "")
+              : "not paid",
+            date_created: order.date_created
+              ? new Date(order.date_created).toLocaleString("nb-NO", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", "")
+              : "not paid",
+            date_modified: order.date_modified
+              ? new Date(order.date_modified).toLocaleString("nb-NO", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", "")
               : "not paid",
           }))
         );
@@ -44,7 +49,7 @@ const Orders = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 pb-8">
       <h1 className="text-xl font-bold mb-4">Orders</h1>
       <div className="overflow-x-auto">
         <table className="table-auto border-collapse w-full">
@@ -53,6 +58,8 @@ const Orders = () => {
               <th className="px-4 py-2 bg-gray-100 border">Order ID</th>
               <th className="px-4 py-2 bg-gray-100 border">Status</th>
               <th className="px-4 py-2 bg-gray-100 border">Paid</th>
+              <th className="px-4 py-2 bg-gray-100 border">Date created</th>
+              <th className="px-4 py-2 bg-gray-100 border">Last modified</th>
               <th className="px-4 py-2 bg-gray-100 border">Order amount</th>
             </tr>
           </thead>
@@ -66,6 +73,8 @@ const Orders = () => {
                 </td>
                 <td className="px-4 py-2 border">{order.status}</td>
                 <td className="px-4 py-2 border">{order.date_paid_gmt}</td>
+                <td className="px-4 py-2 border">{order.date_created}</td>
+                <td className="px-4 py-2 border">{order.date_modified}</td>
                 <td className="px-4 py-2 border">
                   {order.total} {order.currency_symbol}
                 </td>

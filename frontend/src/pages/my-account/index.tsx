@@ -1,3 +1,4 @@
+import MyPage from "@/components/MyPage";
 import Orders from "@/components/Orders";
 import { setLoggedInState } from "@/state/slices/cartSlice";
 import { RootState } from "@/state/store";
@@ -20,7 +21,7 @@ const MyAccount: React.FC = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "mypage":
-        return <div>My page content goes here...</div>;
+        return <MyPage />;
       case "orders":
         return <Orders />;
       case "wishlist":

@@ -56,6 +56,41 @@ export type WooCommerceImage = {
     klarnaHtmlSnippet: string;
   }
 
+ 
+  
+
+  export type WoocommerceLineItem = {
+    id: number;
+    name: string;
+    product_id: number;
+    variation_id: number;
+    quantity: number;
+    tax_class: string;
+    subtotal: string;
+    subtotal_tax: string;
+    total: string;
+    total_tax: string;
+    taxes: {
+      id: number;
+      total: string;
+      subtotal: string;
+    }[];
+    meta_data: {
+      id: number;
+      key: string;
+      value: string;
+      display_key: string;
+      display_value: string;
+    }[];
+    sku: string;
+    price: number;
+    image: {
+      id: string;
+      src: string;
+    };
+    parent_name: string | null;
+  };
+
   export type WoocommerceOrderResponse = {
     id: number;
     parent_id: number;
@@ -107,16 +142,100 @@ export type WooCommerceImage = {
     created_via: string;
     customer_note: string;
     date_completed: string | null;
-    date_paid: string | null;
+    date_paid: string;
     cart_hash: string;
     number: string;
-    meta_data: any[];
-    line_items: any[];
-    tax_lines: any[];
-    shipping_lines: any[];
-    fee_lines: any[];
-    coupon_lines: any[];
-    refunds: any[];
+    meta_data: {
+      id: number;
+      key: string;
+      value: string;
+    }[];
+    line_items: WoocommerceLineItem[];
+    tax_lines: {
+      id: number;
+      rate_code: string;
+      rate_id: number;
+      label: string;
+      compound: boolean;
+      tax_total: string;
+      shipping_tax_total: string;
+      rate_percent: number;
+      meta_data: {
+        id: number;
+        key: string;
+        value: string;
+      }[];
+    }[];
+    shipping_lines: {
+      id: number;
+      method_title: string;
+      method_id: string;
+      total: string;
+      total_tax: string;
+      taxes: {
+        id: number;
+        total: string;
+      }[];
+      meta_data: {
+        id: number;
+        key: string;
+        value: string;
+      }[];
+    }[];
+    fee_lines: {
+      id: number;
+      name: string;
+      tax_class: string;
+      tax_status: string;
+      amount: string;
+      total: string;
+      total_tax: string;
+      taxes: {
+        id: number;
+        total: string;
+      }[];
+      meta_data: {
+        id: number;
+        key: string;
+        value: string;
+      }[];
+    }[];
+    coupon_lines: {
+      id: number;
+      code: string;
+      discount: string;
+      discount_tax: string;
+      meta_data: {
+        id: number;
+        key: string;
+        value: string;
+      }[];
+    }[];
+    refunds: {
+      id: number;
+      reason: string;
+      total: string;
+      tax_total: string;
+      shipping_tax_total: string;
+      line_items: {
+        id: number;
+        subtotal: string;
+        subtotal_tax: string;
+        total: string;
+        total_tax: string;
+        meta_data: {
+          id: number;
+          key: string;
+          value: string;
+        }[];
+      }[];
+      payment_refund_id: string | null;
+      meta_data: {
+        id: number;
+        key: string;
+        value: string;
+      }[];
+    }[];
     payment_url: string;
     is_editable: boolean;
     needs_payment: boolean;
@@ -124,8 +243,59 @@ export type WooCommerceImage = {
     date_created_gmt: string;
     date_modified_gmt: string;
     date_completed_gmt: string | null;
-    date_paid_gmt: string | null;
+    date_paid_gmt: string;
     currency_symbol: string;
+    _links: {
+      self: { href: string }[];
+      collection: { href: string }[];
+      customer: { href: string }[];
+    };
+  };
+  
+
+  export type WoocommerceCustomerResponse = {
+    id: number;
+    date_created: string;
+    date_created_gmt: string;
+    date_modified: string;
+    date_modified_gmt: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    role: string;
+    username: string;
+    billing: {
+      first_name: string;
+      last_name: string;
+      company: string;
+      address_1: string;
+      address_2: string;
+      city: string;
+      postcode: string;
+      country: string;
+      state: string;
+      email: string;
+      phone: string;
+    };
+    shipping: {
+      first_name: string;
+      last_name: string;
+      company: string;
+      address_1: string;
+      address_2: string;
+      city: string;
+      postcode: string;
+      country: string;
+      state: string;
+      phone: string;
+    };
+    is_paying_customer: boolean;
+    avatar_url: string;
+    meta_data: {
+      id: number;
+      key: string;
+      value: string;
+    }[];
     _links: {
       self: {
         href: string;
@@ -134,5 +304,5 @@ export type WooCommerceImage = {
         href: string;
       }[];
     };
-  };
+  }
   

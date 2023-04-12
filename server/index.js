@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser"
 import ordersRouter from "./routes/orders.js"
 import productsRouter from "./routes/products.js"
 import authRouter from "./routes/auth.js"
+import usersRouter from "./routes/users.js";
 
 dotenv.config();
 const app = express();
@@ -27,3 +28,4 @@ app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
 app.use("/orders", ordersRouter);
 app.use("/auth", authRouter)
 app.use("/products", productsRouter);
+app.use("/users", usersRouter);

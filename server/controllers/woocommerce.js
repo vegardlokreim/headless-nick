@@ -218,5 +218,7 @@ export const getProduct = async (productId) => {
         stock_status: response.stock_status
 
     };
+
+    console.log("Getting them products")
     return product;
 }

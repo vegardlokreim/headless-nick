@@ -18,7 +18,7 @@ export default function Login() {
   const isLoggedIn = useSelector((state: RootState) => state.cart.isLoggedIn);
 
   if (isLoggedIn) {
-    Router.push("/myAccount");
+    Router.push("/my-account");
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -36,7 +36,7 @@ export default function Login() {
         }
       );
 
-      Router.push("/myAccount");
+      Router.push("/my-account");
       dispatch(setLoggedInState(true));
     } catch (error) {
       setError("Invalid username or password");
